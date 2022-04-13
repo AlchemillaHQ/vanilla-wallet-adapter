@@ -1,0 +1,154 @@
+/* The Modal (background) */
+.modal {
+    font-family: DM Sans,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1051; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    position: relative;
+    background-color: #1E223D;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    margin: 15vh auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    max-height: 80vh;
+    max-width: 400px; /* Could be more or less, depending on screen size */
+    overflow-y: hidden;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 60%);
+    border-radius: 10px;
+}
+
+.wallet-adapter-modal-list-more {
+    cursor: pointer;
+    border: none;
+    padding: 12px 24px 24px 12px;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: #fff;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-button span {
+    margin-left: auto;
+    font-size: 14px;
+    opacity: .6;
+}
+
+.wallet-adapter-modal-list-more-icon-rotate {
+    transform: rotate(180deg);
+}
+
+.wallet-adapter-modal-list-more > svg {
+    color: white;
+}
+
+.wallet-adapter-modal-title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    margin: 0;
+    padding: 64px 48px 48px;
+    text-align: center;
+    color: #fff;
+}
+
+.wallet-list-item {
+    padding: 15 20px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-width: 0;
+    background-color: transparent;
+    color: #fff;
+}
+
+.wallet-list-item span {
+    margin-left: auto;
+    font-size: 14px;
+    opacity: .6;
+}
+
+.wallet-list-item:not([disabled]):hover {
+    background-color: #1a1f2e;
+    cursor: pointer;
+}
+
+.wallet-modal-body {
+    flex: 1;
+    overflow: auto; /* Enable scroll if needed */
+    padding: 0;
+}
+
+.wallet-title {
+    margin-left: 0.5em;
+    margin-bottom: 0px; 
+    margin-top: 0.15em;
+    font-size: 16px;
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.wallet-adapter-modal-button-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    padding: 12px;
+    cursor: pointer;
+    background: #1a1f2e;
+    border: none;
+    border-radius: 50%;
+}
+
+.wallet-adapter-modal-button-close svg {
+    fill: #777;
+    transition: fill .2s ease 0s;
+}
+
+.wallet-adapter-modal-button-close:hover svg {
+    fill: #fff;
+    transition: fill .2s ease 0s;
+}
+
+.wallet-adapter-modal-middle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 24px 24px;
+    box-sizing: border-box;
+}
+
+.wallet-adapter-modal-middle-button {
+    display: block;
+    cursor: pointer;
+    margin-top: 48px;
+    width: 100%;
+    background-color: #512da8;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+}

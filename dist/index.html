@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Title</title></head><body><button id="button">Connect</button><script src="solana-wallet-vanilla-adapter.js"></script><script>const button = document.getElementById('button');
+
+        const wallet = new SolanaAdapter({
+            autoConnect: true,
+            onConnect: () => {
+                alert('connected');
+                button.textContent = 'Disconnect'
+                wallet.hideWalletModal();
+            },
+            onDisconnect: () => {
+                button.textContent = 'Connect'
+            },
+            onError: (e) => {
+                alert(e)
+            }
+        });
+        window.wallet = wallet;
+
+        document.getElementById('button').onclick = () => {
+            if (wallet.isConnected()) {
+                wallet.disconnect();
+            } else {
+                wallet.showWalletModal();
+
+            }
+        }</script></body></html>
