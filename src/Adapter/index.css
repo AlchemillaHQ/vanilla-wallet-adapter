@@ -1,9 +1,9 @@
 /* The Modal (background) */
-.modal {
+.sol-modal {
     font-family: DM Sans,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1051; /* Sit on top */
+    z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -15,9 +15,9 @@
 }
 
 /* Modal Content/Box */
-.modal-content {
+.solana-modal-content {
     position: relative;
-    background-color: #1E223D;
+    background-color: #10141f;
     display: flex;
     flex-direction: column;
     color: #fff;
@@ -66,9 +66,10 @@
 }
 
 .wallet-list-item {
-    padding: 15 20px;
+    padding: 0 20px;
     display: flex;
     flex-direction: row;
+    align-items: center;
     width: 100%;
     border-width: 0;
     background-color: transparent;
@@ -94,17 +95,6 @@
 
 .wallet-title {
     margin-left: 0.5em;
-    margin-bottom: 0px; 
-    margin-top: 0.15em;
-    font-size: 16px;
-}
-
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
 }
 
 .wallet-adapter-modal-button-close {

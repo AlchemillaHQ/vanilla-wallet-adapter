@@ -17,76 +17,74 @@ import {
 import "./index.css";
 
 import {
-  BitKeepWalletAdapter,
-  BitpieWalletAdapter,
-  BloctoWalletAdapter,
+  // BitKeepWalletAdapter,
+  // BitpieWalletAdapter,
+  // BloctoWalletAdapter,
   CloverWalletAdapter,
+  SolletExtensionWalletAdapter,
   Coin98WalletAdapter,
-  CoinhubWalletAdapter,
+  // CoinhubWalletAdapter,
   GlowWalletAdapter,
   LedgerWalletAdapter,
   MathWalletAdapter,
   PhantomWalletAdapter,
-  SafePalWalletAdapter,
+  // SafePalWalletAdapter,
   SlopeWalletAdapter,
   SolflareWalletAdapter,
-  SolletExtensionWalletAdapter,
   SolletWalletAdapter,
   SolongWalletAdapter,
-  TokenPocketWalletAdapter,
-  TorusWalletAdapter,
+  // TokenPocketWalletAdapter,
+  // TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { HuobiWalletAdapter } from "@solana/wallet-adapter-huobi";
 import { WalletSVG } from "./WalletSvg";
 
 const DEFAULT_NETWORK = WalletAdapterNetwork.Devnet;
 
-console.log(DEFAULT_NETWORK, WalletAdapterNetwork);
-
 const WalletAdapters: {
   [key: string]: any;
 } = {
-  BitKeep: BitKeepWalletAdapter,
-  Bitpie: BitpieWalletAdapter,
-  Blocto: BloctoWalletAdapter,
+  // BitKeep: BitKeepWalletAdapter,
+  // Bitpie: BitpieWalletAdapter,
+  // Blocto: BloctoWalletAdapter,
   Clover: CloverWalletAdapter,
   Coin98: Coin98WalletAdapter,
-  Coinhub: CoinhubWalletAdapter,
+  // Coinhub: CoinhubWalletAdapter,
   Glow: GlowWalletAdapter,
   HuobiWallet: HuobiWalletAdapter,
   Ledger: LedgerWalletAdapter,
   MathWallet: MathWalletAdapter,
   Phantom: PhantomWalletAdapter,
-  SafePal: SafePalWalletAdapter,
+  "Sollet (Extention)": SolletExtensionWalletAdapter,
+  // SafePal: SafePalWalletAdapter,
   Slope: SlopeWalletAdapter,
   Solflare: SolflareWalletAdapter,
   Sollet: SolletWalletAdapter,
-  SolletExtension: SolletExtensionWalletAdapter,
   Solong: SolongWalletAdapter,
-  TokenPocket: TokenPocketWalletAdapter,
-  Torus: TorusWalletAdapter,
+  // TokenPocket: TokenPocketWalletAdapter,
+  // Torus: TorusWalletAdapter,
 };
 
 const DEFAULT_WALLETS: (keyof typeof WalletAdapters)[] = [
-  "BitKeep",
-  "Bitpie",
-  "Blocto",
+  // "BitKeep",
+  // "Bitpie",
+  // "Blocto",
   "Clover",
   "Coin98",
-  "Coinhub",
+  // "Coinhub",
   "Glow",
   "HuobiWallet",
   "Ledger",
   "MathWallet",
   "Phantom",
-  "SafePal",
+  // "SafePal",
   "Slope",
   "Solflare",
   "Sollet",
-  "SolletExtension",
+  "Sollet (Extention)",
   "Solong",
-  "TokenPocket",
-  "Torus",
+  // "TokenPocket",
+  // "Torus",
 ];
 
 const DEFAULT_LOCAL_STORAGE_KEY = "SOL_LOCAL_STORAGE_KEY";
@@ -112,8 +110,8 @@ interface Wallet {
 const SetupModal = () => {
   const Modal = document.createElement("div");
   Modal.setAttribute("id", "wallet-modal-container");
-  Modal.setAttribute("class", "modal");
-  Modal.innerHTML = `<div class="modal-content"></div>`;
+  Modal.setAttribute("class", "sol-modal");
+  Modal.innerHTML = `<div class="solana-modal-content"></div>`;
 
   document.querySelector("body")?.appendChild(Modal);
   return Modal;
@@ -286,9 +284,9 @@ export default class Adapter {
       if (walletIndex === -1) return prevWallets;
 
       if (
-        (adapterC?.name === this.localStorageWalletName &&
-          adapterC.readyState === WalletReadyState.Loadable) ||
-        adapterC.readyState === WalletReadyState.Installed
+        adapterC?.name === this.localStorageWalletName &&
+        (adapterC.readyState === WalletReadyState.Loadable ||
+          adapterC.readyState === WalletReadyState.Installed)
       ) {
         this.handleAutoconnect();
       }
@@ -342,7 +340,7 @@ export default class Adapter {
     this.modal.onclick = () => this.hideWalletModal();
 
     this.modal.innerHTML = `
-    <div id="sol-modal-content" class="modal-content">
+    <div id="sol-modal-content" class="solana-modal-content">
         <button id="sol-close-modal-button" class="wallet-adapter-modal-button-close">
           <svg width="14" height="14">
             <path d="M14 12.461 8.3 6.772l5.234-5.233L12.006 0 6.772 5.234 1.54 0 0 1.539l5.234 5.233L0 12.006l1.539 1.528L6.772 8.3l5.69 5.7L14 12.461z"></path>
@@ -465,7 +463,7 @@ export default class Adapter {
 
     (async () => {
       try {
-        await this.wallet?.adapter.connect();
+        await this.connect();
       } catch (error: any) {
         this.wallet = undefined;
       }
@@ -481,6 +479,13 @@ export default class Adapter {
       };
       adapter.on("readyStateChange", handleState, adapter);
 
+      if (
+        adapter?.name === this.localStorageWalletName &&
+        (adapter.readyState === WalletReadyState.Loadable ||
+          adapter.readyState === WalletReadyState.Installed)
+      ) {
+        this.handleAutoconnect();
+      }
       return { adapter, ...rest, toCleanUp: handleState };
     });
   }

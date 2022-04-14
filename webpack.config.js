@@ -9,11 +9,11 @@ const PROD = process.env.NODE_ENV === "production";
 
 module.exports = {
   entry: {
-    "solana-wallet-vanilla-adapter": "./src/index.ts",
+    "my-lib": "./src/index.ts",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].js",
+    filename: "solana-vanilla-adapter.[contenthash].js",
     library: "MyLib",
     umdNamedDefine: true,
   },
