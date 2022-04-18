@@ -3,7 +3,7 @@
     font-family: DM Sans,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1051; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -17,7 +17,7 @@
 /* Modal Content/Box */
 .solana-modal-content {
     position: relative;
-    background-color: #10141f;
+    background-color: #1E223D;
     display: flex;
     flex-direction: column;
     color: #fff;
@@ -66,10 +66,9 @@
 }
 
 .wallet-list-item {
-    padding: 0 20px;
+    padding: 15px 20px;
     display: flex;
     flex-direction: row;
-    align-items: center;
     width: 100%;
     border-width: 0;
     background-color: transparent;
@@ -95,6 +94,9 @@
 
 .wallet-title {
     margin-left: 0.5em;
+    margin-bottom: 0px;
+    margin-top: 0.15em;
+    font-size: 16px;
 }
 
 .wallet-adapter-modal-button-close {
