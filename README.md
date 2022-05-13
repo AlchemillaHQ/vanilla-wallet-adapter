@@ -64,16 +64,30 @@ class  Adapter  {
 }
 ```
 
-### Send a Transaction
+### Send a SOL Transaction
+
 ```ts
-const  wallet  =  new  SolanaAdapter();
+const wallet  =  new SolanaAdapter();
+
 wallet.selectWallet('Phantom');
 wallet.sendTransaction('public-key-to-send-to',  1,  {
-	onTransactionSent:  (signature)  =>  {  ...when  a  transaction  is  sent...  },
-	onSuccess:  (signature)  =>  {  ...do  what  you  want  with  signature...},
-	onError:  (error)  =>  {  ...when  an  error  occurs...}
-}) // amount is in lamport
+	onTransactionSent:  (signature)  =>  {},
+	onSuccess:  (signature)  =>  {},
+	onError:  (error)  =>  {}
+});
 ```
+
+### Send a Token Transaction
+
+```ts
+const wallet = new SolanaAdapter();
+wallet.sendTokenTransaction("to-address", 1, 6, "token-mint-address", {
+	onTransactionSent:  (signature)  =>  {},
+	onSuccess:  (signature)  =>  {},
+	onError:  (error)  =>  {}
+});
+```
+
 
 ### To load specfic wallets
 

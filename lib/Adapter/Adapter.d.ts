@@ -50,6 +50,7 @@ export default class Adapter {
     sendTransaction(reciever: string, amount: number, { onError, onSuccess, onTransactionSent }: any): Promise<string | undefined>;
     close(): void;
     getWallet(): Wallet | undefined;
+    sendTokenTransaction(reciever: string, amount: number, decimals: number, MINT_PUBLIC_KEY: string, { onError, onSuccess, onTransactionSent }: any): Promise<string | undefined>;
     private static createEndpoint;
 }
 export {};

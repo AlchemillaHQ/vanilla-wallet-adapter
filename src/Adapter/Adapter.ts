@@ -4,6 +4,7 @@ import {
   WalletName,
   WalletReadyState,
 } from "@solana/wallet-adapter-base";
+
 import {
   clusterApiUrl,
   Connection,
@@ -14,6 +15,12 @@ import {
   Transaction,
   TransactionSignature,
 } from "@solana/web3.js";
+
+import { 
+  TOKEN_PROGRAM_ID,
+  createTransferInstruction
+} from "@solana/spl-token";
+
 import "./index.css";
 
 import {
@@ -607,6 +614,66 @@ export default class Adapter {
 
   public getWallet() {
     return this.wallet;
+  }
+
+  public async sendTokenTransaction(
+    reciever: string,
+    amount: number,
+    decimals: number,
+    MINT_PUBLIC_KEY: string,
+    { onError, onSuccess, onTransactionSent }: any
+  ) {
+    if (!this.wallet?.adapter.publicKey) {
+      onError && onError("Wallet not connected!");
+      return;
+    }
+
+    const mintPublicKey = new PublicKey(
+      MINT_PUBLIC_KEY
+    );
+
+    const dp = Math.pow(10, decimals);
+
+    let signature: TransactionSignature = "";
+
+    try {
+      const toWallet = new PublicKey(reciever)
+
+      let fromTokenAccountData: any = await this.connection.getParsedTokenAccountsByOwner(this.wallet.adapter.publicKey, {
+        mint: mintPublicKey
+      });
+      fromTokenAccountData = fromTokenAccountData.value[0];
+      let toTokenAccountsData: any = await this.connection.getParsedTokenAccountsByOwner(toWallet, {
+        mint: mintPublicKey
+      })
+      toTokenAccountsData = toTokenAccountsData.value[0];
+    
+      const fromTokenAccount = new PublicKey(fromTokenAccountData.pubkey);
+      const toTokenAccount = new PublicKey(toTokenAccountsData.pubkey);
+
+      let transaction = new Transaction().add(
+        createTransferInstruction(
+            fromTokenAccount,
+            toTokenAccount,
+            this.wallet.adapter.publicKey,
+            amount * dp,
+            [],
+            TOKEN_PROGRAM_ID
+        ),
+      );
+
+      signature = await this.wallet.adapter.sendTransaction(
+        transaction,
+        this.connection
+      );
+
+      onTransactionSent && onTransactionSent(signature);
+      await this.connection.confirmTransaction(signature, "processed");
+      onSuccess && onSuccess(signature);
+      return signature;
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 
   private static createEndpoint(network: WalletAdapterNetwork) {
