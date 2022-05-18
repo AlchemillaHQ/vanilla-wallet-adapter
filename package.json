@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --config=webpack.config.js",
-    "build:prod": "webpack --mode=production --optimization-minimize && tsc",
-    "build:dev": "webpack --mode=production && tsc"
+    "build:prod": "rm -rf dist/* && webpack --mode=production --optimization-minimize && tsc",
+    "build:dev": "rm -rf dist/* && webpack --mode=production && tsc"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^5.2.1",

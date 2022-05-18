@@ -243,7 +243,7 @@ export default class Adapter {
     const {
       network = DEFAULT_NETWORK,
       wallets = DEFAULT_WALLETS,
-      connectionConfig = { commitment: "confirmed" },
+      connectionConfig = { commitment: "confirmed", confirmTransactionInitialTimeout: 100000 },
       localStorageKey = DEFAULT_LOCAL_STORAGE_KEY,
       onConnect,
       onDisconnect,
@@ -672,7 +672,8 @@ export default class Adapter {
       onSuccess && onSuccess(signature);
       return signature;
     } catch (error: any) {
-      throw new Error(error);
+      onError && onError(error.message);
+      throw new Error(error.message);
     }
   }
 

@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "solana-vanilla-adapter.[contenthash].js",
+    filename: "solana-vanilla-adapter.js",
     library: "MyLib",
     umdNamedDefine: true,
   },
